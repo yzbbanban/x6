@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">x6</string>
+
+    <string name="str_ok">ok</string>
+    <string name="str_cancel">cancel</string>
+    <string name="str_confirm">confirm</string>
+</resources>

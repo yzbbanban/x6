@@ -1,0 +1,96 @@
+package com.example.x6.constant;
+
+public class SerialConstant {
+
+    /**
+     * 全开
+     * FE 0F 00 00 00 10 02 FF FF A6 64
+     * <p>
+     * FE 0F 00 00 00 20 04 FF FF FF FF F6 0B
+     */
+    public static byte[] BYTES_0_O = new byte[]{(byte) 0xFE, (byte) 0x0F, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x20, (byte) 0x04, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xF6, (byte) 0x0B};
+    /**
+     * 全关
+     * FE 0F 00 00 00 10 02 00 00 A7 D4
+     * <p>
+     * FE 0F 00 00 00 20 04 00 00 00 00 F7 9F
+     */
+    public static byte[] BYTES_0_C = new byte[]{(byte) 0xFE, (byte) 0x0F, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x20, (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xF7, (byte) 0x9F};
+
+    /**
+     * 全断全开返回码
+     * FE 0F 00 00 00 20 40 1C
+     */
+    public static byte[] BYTES_ALL_BACK = new byte[]{(byte) 0xFE, (byte) 0x0F, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x20, (byte) 0x40, (byte) 0x1C};
+
+    public static String BYTES_NUM = "BYTES_%s_%s";
+
+    /**
+     * 路开关
+     */
+    public static byte[] BYTES_1_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x00, (byte) 0xFF, (byte) 0x00, (byte) 0x98, (byte) 0x35};
+    public static byte[] BYTES_1_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xD9, (byte) 0xC5};
+    public static byte[] BYTES_2_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x01, (byte) 0xFF, (byte) 0x00, (byte) 0xC9, (byte) 0xF5};
+    public static byte[] BYTES_2_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x88, (byte) 0x05};
+    public static byte[] BYTES_3_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x02, (byte) 0xFF, (byte) 0x00, (byte) 0x39, (byte) 0xF5};
+    public static byte[] BYTES_3_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x00, (byte) 0x78, (byte) 0x05};
+    public static byte[] BYTES_4_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x03, (byte) 0xFF, (byte) 0x00, (byte) 0x68, (byte) 0x35};
+    public static byte[] BYTES_4_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x03, (byte) 0x00, (byte) 0x00, (byte) 0x29, (byte) 0xC5};
+    public static byte[] BYTES_5_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x04, (byte) 0xFF, (byte) 0x00, (byte) 0xD9, (byte) 0xF4};
+    public static byte[] BYTES_5_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x98, (byte) 0x04};
+    public static byte[] BYTES_6_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x05, (byte) 0xFF, (byte) 0x00, (byte) 0x88, (byte) 0x34};
+    public static byte[] BYTES_6_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x05, (byte) 0x00, (byte) 0x00, (byte) 0xC9, (byte) 0xC4};
+    public static byte[] BYTES_7_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x06, (byte) 0xFF, (byte) 0x00, (byte) 0x78, (byte) 0x34};
+    public static byte[] BYTES_7_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x06, (byte) 0x00, (byte) 0x00, (byte) 0x39, (byte) 0xC4};
+    public static byte[] BYTES_8_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x07, (byte) 0xFF, (byte) 0x00, (byte) 0x29, (byte) 0xF4};
+    public static byte[] BYTES_8_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x07, (byte) 0x00, (byte) 0x00, (byte) 0x68, (byte) 0x04};
+    public static byte[] BYTES_9_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x08, (byte) 0xFF, (byte) 0x00, (byte) 0x19, (byte) 0xF7};
+    public static byte[] BYTES_9_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x08, (byte) 0x00, (byte) 0x00, (byte) 0x58, (byte) 0x07};
+    public static byte[] BYTES_10_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x09, (byte) 0xFF, (byte) 0x00, (byte) 0x48, (byte) 0x37};
+    public static byte[] BYTES_10_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x09, (byte) 0x00, (byte) 0x00, (byte) 0x09, (byte) 0xC7};
+    public static byte[] BYTES_11_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0A, (byte) 0xFF, (byte) 0x00, (byte) 0xB8, (byte) 0x37};
+    public static byte[] BYTES_11_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0A, (byte) 0x00, (byte) 0x00, (byte) 0xF9, (byte) 0xC7};
+    public static byte[] BYTES_12_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0B, (byte) 0xFF, (byte) 0x00, (byte) 0xE9, (byte) 0xF7};
+    public static byte[] BYTES_12_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0B, (byte) 0x00, (byte) 0x00, (byte) 0xA8, (byte) 0x07};
+    public static byte[] BYTES_13_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0C, (byte) 0xFF, (byte) 0x00, (byte) 0x58, (byte) 0x36};
+    public static byte[] BYTES_13_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0C, (byte) 0x00, (byte) 0x00, (byte) 0x19, (byte) 0xC6};
+    public static byte[] BYTES_14_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0D, (byte) 0xFF, (byte) 0x00, (byte) 0x09, (byte) 0xF6};
+    public static byte[] BYTES_14_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0D, (byte) 0x00, (byte) 0x00, (byte) 0x48, (byte) 0x06};
+    public static byte[] BYTES_15_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0E, (byte) 0xFF, (byte) 0x00, (byte) 0xF9, (byte) 0xF6};
+    public static byte[] BYTES_15_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0E, (byte) 0x00, (byte) 0x00, (byte) 0xB8, (byte) 0x06};
+    public static byte[] BYTES_16_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0F, (byte) 0xFF, (byte) 0x00, (byte) 0xA8, (byte) 0x36};
+    public static byte[] BYTES_16_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x0F, (byte) 0x00, (byte) 0x00, (byte) 0xE9, (byte) 0xC6};
+    public static byte[] BYTES_17_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x10, (byte) 0xFF, (byte) 0x00, (byte) 0x99, (byte) 0xF0};
+    public static byte[] BYTES_17_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x10, (byte) 0x00, (byte) 0x00, (byte) 0xD8, (byte) 0x00};
+    public static byte[] BYTES_18_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x11, (byte) 0xFF, (byte) 0x00, (byte) 0xC8, (byte) 0x30};
+    public static byte[] BYTES_18_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x11, (byte) 0x00, (byte) 0x00, (byte) 0x89, (byte) 0xC0};
+    public static byte[] BYTES_19_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x12, (byte) 0xFF, (byte) 0x00, (byte) 0x38, (byte) 0x30};
+    public static byte[] BYTES_19_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x12, (byte) 0x00, (byte) 0x00, (byte) 0x79, (byte) 0xC0};
+    public static byte[] BYTES_20_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x13, (byte) 0xFF, (byte) 0x00, (byte) 0x69, (byte) 0xF0};
+    public static byte[] BYTES_20_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x13, (byte) 0x00, (byte) 0x00, (byte) 0x28, (byte) 0x00};
+    public static byte[] BYTES_21_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x14, (byte) 0xFF, (byte) 0x00, (byte) 0xD8, (byte) 0x31};
+    public static byte[] BYTES_21_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x14, (byte) 0x00, (byte) 0x00, (byte) 0x99, (byte) 0xC1};
+    public static byte[] BYTES_22_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x15, (byte) 0xFF, (byte) 0x00, (byte) 0x89, (byte) 0xF1};
+    public static byte[] BYTES_22_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x15, (byte) 0x00, (byte) 0x00, (byte) 0xC8, (byte) 0x01};
+    public static byte[] BYTES_23_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x16, (byte) 0xFF, (byte) 0x00, (byte) 0x79, (byte) 0xF1};
+    public static byte[] BYTES_23_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x16, (byte) 0x00, (byte) 0x00, (byte) 0x38, (byte) 0x01};
+    public static byte[] BYTES_24_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x17, (byte) 0xFF, (byte) 0x00, (byte) 0x28, (byte) 0x31};
+    public static byte[] BYTES_24_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x17, (byte) 0x00, (byte) 0x00, (byte) 0x69, (byte) 0xC1};
+    public static byte[] BYTES_25_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x18, (byte) 0xFF, (byte) 0x00, (byte) 0x18, (byte) 0x32};
+    public static byte[] BYTES_25_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x18, (byte) 0x00, (byte) 0x00, (byte) 0x59, (byte) 0xC2};
+    public static byte[] BYTES_26_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x19, (byte) 0xFF, (byte) 0x00, (byte) 0x49, (byte) 0xF2};
+    public static byte[] BYTES_26_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x19, (byte) 0x00, (byte) 0x00, (byte) 0x08, (byte) 0x02};
+    public static byte[] BYTES_27_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1A, (byte) 0xFF, (byte) 0x00, (byte) 0xB9, (byte) 0xF2};
+    public static byte[] BYTES_27_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1A, (byte) 0x00, (byte) 0x00, (byte) 0xF8, (byte) 0x02};
+    public static byte[] BYTES_28_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1B, (byte) 0xFF, (byte) 0x00, (byte) 0xE8, (byte) 0x32};
+    public static byte[] BYTES_28_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1B, (byte) 0x00, (byte) 0x00, (byte) 0xA9, (byte) 0xC2};
+    public static byte[] BYTES_29_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1C, (byte) 0xFF, (byte) 0x00, (byte) 0x59, (byte) 0xF3};
+    public static byte[] BYTES_29_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1C, (byte) 0x00, (byte) 0x00, (byte) 0x18, (byte) 0x03};
+    public static byte[] BYTES_30_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1D, (byte) 0xFF, (byte) 0x00, (byte) 0x08, (byte) 0x33};
+    public static byte[] BYTES_30_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1D, (byte) 0x00, (byte) 0x00, (byte) 0x49, (byte) 0xC3};
+    public static byte[] BYTES_31_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1E, (byte) 0xFF, (byte) 0x00, (byte) 0xF8, (byte) 0x33};
+    public static byte[] BYTES_31_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1E, (byte) 0x00, (byte) 0x00, (byte) 0xB9, (byte) 0xC3};
+    public static byte[] BYTES_32_O = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1F, (byte) 0xFF, (byte) 0x00, (byte) 0xA9, (byte) 0xF3};
+    public static byte[] BYTES_32_C = new byte[]{(byte) 0xFE, (byte) 0x05, (byte) 0x00, (byte) 0x1F, (byte) 0x00, (byte) 0x00, (byte) 0xE8, (byte) 0x03};
+
+}
