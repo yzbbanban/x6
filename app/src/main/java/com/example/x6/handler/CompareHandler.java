@@ -2,10 +2,13 @@ package com.example.x6.handler;
 
 import android.util.Log;
 
+import com.example.x6.activity.MainActivity;
 import com.example.x6.app.SerialApplication;
 import com.example.x6.constant.SerialConstant;
 import com.example.x6.entity.Bucket;
 import com.example.x6.entity.ResultCode;
+import com.example.x6.model.ICallBack;
+import com.example.x6.model.SendOperaModel;
 import com.example.x6.util.LogUtil;
 import com.example.x6.util.ToastUtil;
 import com.google.gson.Gson;
@@ -37,6 +40,7 @@ public class CompareHandler implements RequestHandler {
 
     private static final String TAG = "CompareHandler";
 
+
     @RequestMapping(method = {RequestMethod.POST})
     @Override
     public void handle(HttpRequest httpRequest, HttpResponse httpResponse, HttpContext httpContext) throws HttpException, IOException {
@@ -45,8 +49,8 @@ public class CompareHandler implements RequestHandler {
 
         try {
             Map<String, String> params = HttpRequestParser.parseParams(httpRequest);
-            LogUtil.info(TAG, new Gson().toJson(httpContext));
-            LogUtil.info(TAG, httpRequest.toString());
+//            LogUtil.info(TAG, new Gson().toJson(httpContext));
+//            LogUtil.info(TAG, httpRequest.toString());
 
             String id = params.get("id");
             // PRI313,30111111,2017.06.29,20,2017.06.29
@@ -67,13 +71,13 @@ public class CompareHandler implements RequestHandler {
                     resultCode.setMessage("success");
                     result = gson.toJson(resultCode);
                     //保存数据
-                    Bucket b=new Bucket();
-                    b.setName(bucketParams[0]);
-                    b.setBucketNumber(bucketParams[1]);
-                    b.setBucketSendDate(bucketParams[2]);
-                    b.setWeight(Double.parseDouble(bucketParams[3]));
-                    b.setBucketExpiryDate(bucketParams[4]);
-                    b.update(bucket.getId());
+                    bucket.setName(bucketParams[0]);
+                    bucket.setBucketNumber(bucketParams[1]);
+                    bucket.setBucketSendDate(bucketParams[2]);
+                    bucket.setWeight(Double.parseDouble(bucketParams[3]));
+                    bucket.setBucketExpiryDate(bucketParams[4]);
+                    bucket.update(bucket.getId());
+
 
                 } else {
                     resultCode.setCode("500");
@@ -93,6 +97,5 @@ public class CompareHandler implements RequestHandler {
             httpResponse.setEntity(stringEntity);
         }
     }
-
 
 }

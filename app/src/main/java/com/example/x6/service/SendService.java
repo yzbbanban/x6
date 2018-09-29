@@ -1,5 +1,6 @@
 package com.example.x6.service;
 
+
 import com.example.x6.constant.ServiceResult;
 import com.example.x6.entity.ResultCode;
 
@@ -15,8 +16,13 @@ import retrofit2.http.Query;
  */
 
 public interface SendService {
-    @GET("send")
-//    @FormUrlEncoded
-//    Call<ResultCode<String>> call(@Field("send") String send);
-    Call<ResultCode<String>> call(@Query("send") String send);
+    @POST("save")
+    @FormUrlEncoded
+//    Call<ResultCode<String>> call(@Field("send") String send),
+    Call<ResultCode<String>> call(@Field("idName") String idName,
+                                  @Field("bucketName") String bucketName,
+                                  @Field("bucketNumber") String bucketNumber,
+                                  @Field("bucketSendDate") String bucketSendDate,
+                                  @Field("weight") Double weight,
+                                  @Field("bucketExpiryDate") String bucketExpiryDate);
 }

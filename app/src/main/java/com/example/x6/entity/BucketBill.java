@@ -10,6 +10,11 @@ public class BucketBill extends DataSupport{
     private Long createTime;
     private Integer status;
 
+    private String bucketNumber;
+    private String bucketSendDate;
+    private Double weight;
+    private String bucketExpiryDate;
+
     public Integer getId() {
         return id;
     }
@@ -58,6 +63,38 @@ public class BucketBill extends DataSupport{
         this.status = status;
     }
 
+    public String getBucketNumber() {
+        return bucketNumber;
+    }
+
+    public void setBucketNumber(String bucketNumber) {
+        this.bucketNumber = bucketNumber;
+    }
+
+    public String getBucketSendDate() {
+        return bucketSendDate;
+    }
+
+    public void setBucketSendDate(String bucketSendDate) {
+        this.bucketSendDate = bucketSendDate;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public String getBucketExpiryDate() {
+        return bucketExpiryDate;
+    }
+
+    public void setBucketExpiryDate(String bucketExpiryDate) {
+        this.bucketExpiryDate = bucketExpiryDate;
+    }
+
     @Override
     public String toString() {
         return "BucketBill{" +
@@ -67,6 +104,10 @@ public class BucketBill extends DataSupport{
                 ", name='" + name + '\'' +
                 ", createTime=" + createTime +
                 ", status=" + status +
+                ", bucketNumber='" + bucketNumber + '\'' +
+                ", bucketSendDate='" + bucketSendDate + '\'' +
+                ", weight=" + weight +
+                ", bucketExpiryDate='" + bucketExpiryDate + '\'' +
                 '}';
     }
 }

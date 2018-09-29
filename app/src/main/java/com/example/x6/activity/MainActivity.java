@@ -94,6 +94,9 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
 
     private ServerPresenter serverPresenter;
 
+    private String id;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -119,6 +122,7 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
                                     long arg3) {
                 Bucket bucket = dataList.get(position);
                 String value = String.valueOf(position + 1);
+                id = "" + bucket.getId();
                 setLock(view, value, bucket.getId(), position);
             }
         });
@@ -128,6 +132,7 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Bucket bucket = dataList.get(position);
+                MainActivity.this.id = "" + bucket.getId();
                 setBucketName(bucket.getName(), bucket.getId(), position);
                 return true;
             }
@@ -471,10 +476,11 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
             @Override
             public void run() {
                 ToastUtil.showLongToast(openCode);
-                SendMessage<SendOperaTime> sendMessage = new SendMessage<>();
-                sendMessage.setStatus("OK");
-                sendMessage.setData(new SendOperaTime(Integer.parseInt(openCode), System.currentTimeMillis() / 1000, "close"));
-                sendOperaModel.send(sendMessage, MainActivity.this);
+//                SendMessage<SendOperaTime> sendMessage = new SendMessage<>();
+//                sendMessage.setStatus("OK");
+//                sendMessage.setData(new SendOperaTime(Integer.parseInt(openCode), System.currentTimeMillis() / 1000, "close"));
+                Bucket bucket = DataSupport.find(Bucket.class, Long.parseLong(id));
+                sendOperaModel.send(bucket, MainActivity.this);
             }
         });
         try {
@@ -484,6 +490,7 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
             ToastUtil.showLongToastCenter("unlockResult==>" + e.getMessage());
         }
     }
+
 
     /**
      * 开锁
@@ -495,10 +502,8 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
             @Override
             public void run() {
                 ToastUtil.showLongToast(closeCode);
-                SendMessage<SendOperaTime> sendMessage = new SendMessage<>();
-                sendMessage.setStatus("OK");
-                sendMessage.setData(new SendOperaTime(Integer.parseInt(closeCode), System.currentTimeMillis() / 1000, "open"));
-                sendOperaModel.send(sendMessage, MainActivity.this);
+                Bucket bucket = DataSupport.find(Bucket.class, Long.parseLong(id));
+                sendOperaModel.send(bucket, MainActivity.this);
             }
         });
         try {
@@ -729,6 +734,7 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
                 //TODO ====================================================
                 //特效
                 startTranslation(vb, Color.RED, 1);
+                //TODO ============================================dddddd========
 
                 white(getValue(message, "C"));
                 //保存到数据库，更新状态
@@ -762,6 +768,7 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
                 //TODO ====================================================
                 startTranslation(vb, Color.GREEN, 1);
 
+                //TODO ============================================dddddd========
                 white(getValue(message, "O"));
                 Bucket bucket = new Bucket();
                 bucket.setId(id);

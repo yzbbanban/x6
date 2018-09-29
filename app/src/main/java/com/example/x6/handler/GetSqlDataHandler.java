@@ -58,7 +58,7 @@ public class GetSqlDataHandler implements RequestHandler {
             if (count <= 0) {
                 result = "{\"code\":200,\"message\":\"success\",\"result\":\"\"}";
             } else {
-                List<BucketBill> bucketBillList = DataSupport.limit(pS).offset(pN).find(BucketBill.class);
+                List<BucketBill> bucketBillList = DataSupport.limit(pS).offset(pN).order("createTime").find(BucketBill.class);
                 map.put("count", count);
                 map.put("list", bucketBillList);
             }

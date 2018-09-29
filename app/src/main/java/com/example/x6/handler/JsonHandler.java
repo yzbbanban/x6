@@ -7,6 +7,8 @@ import com.example.x6.constant.SerialConstant;
 import com.example.x6.entity.Bucket;
 import com.example.x6.entity.BucketBill;
 import com.example.x6.entity.ResultCode;
+import com.example.x6.model.ICallBack;
+import com.example.x6.model.SendOperaModel;
 import com.example.x6.util.LogUtil;
 import com.example.x6.util.ToastUtil;
 import com.google.gson.Gson;
@@ -31,9 +33,12 @@ import java.util.Map;
 /**
  * 解锁
  */
-public class JsonHandler implements RequestHandler {
+public class JsonHandler implements RequestHandler, ICallBack {
 
     private static final String TAG = "JsonHandler";
+
+    private SendOperaModel sendOperaModel = new SendOperaModel();
+
 
     @RequestMapping(method = {RequestMethod.POST})
     @Override
@@ -42,8 +47,8 @@ public class JsonHandler implements RequestHandler {
         Gson gson = new Gson();
         try {
             Map<String, String> params = HttpRequestParser.parseParams(httpRequest);
-            LogUtil.info(TAG, new Gson().toJson(httpContext));
-            LogUtil.info(TAG, httpRequest.toString());
+//            LogUtil.info(TAG, new Gson().toJson(httpContext));
+//            LogUtil.info(TAG, httpRequest.toString());
 
             String id = params.get("id");
             String status = params.get("status").toUpperCase();
@@ -90,6 +95,7 @@ public class JsonHandler implements RequestHandler {
     private void white(byte[] bytes, Integer id, Integer status) {
         try {
             ToastUtil.showLongToastTop(Arrays.toString(bytes));
+//            TODO
             SerialApplication.ttyS1OutputStream.write(bytes);
             Bucket bucket = new Bucket();
             bucket.setId(id);
@@ -104,11 +110,27 @@ public class JsonHandler implements RequestHandler {
             bucketBill.setIdName(buc.getIdName());
             bucketBill.setStatus(buc.getStatus());
             bucketBill.setIdName(buc.getIdName());
+            bucketBill.setBucketExpiryDate(buc.getBucketExpiryDate());
+            bucketBill.setBucketNumber(buc.getBucketNumber());
+            bucketBill.setBucketSendDate(buc.getBucketSendDate());
+            bucketBill.setBucketNumber(buc.getBucketNumber());
+            bucketBill.setWeight(buc.getWeight());
             bucketBill.save();
 
-        } catch (IOException e) {
+            sendOperaModel.send(buc, JsonHandler.this);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
+    @Override
+    public void setSuccess(Object message) {
+        Log.i(TAG, "handler setSuccess: " + message);
+    }
+
+    @Override
+    public void setFailure(Object message) {
+        Log.i(TAG, "handler setFailure: " + message);
+    }
 }
