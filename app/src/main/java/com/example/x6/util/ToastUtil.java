@@ -19,9 +19,9 @@ public class ToastUtil {
      * @param msg 显示的内容-字符串
      */
     public static void showShortToast(String msg) {
-        if (SerialApplication.getAppContext() != null) {
+        if (SerialApplication.getContext() != null) {
             if (toast == null) {
-                toast = Toast.makeText(SerialApplication.getAppContext(), msg, Toast.LENGTH_SHORT);
+                toast = Toast.makeText(SerialApplication.getContext(), msg, Toast.LENGTH_SHORT);
             } else {
                 toast.setText(msg);
             }
@@ -35,9 +35,9 @@ public class ToastUtil {
      * @param msg 显示的内容-字符串
      */
     public static void showShortToastCenter(String msg) {
-        if (SerialApplication.getAppContext() != null) {
+        if (SerialApplication.getContext() != null) {
             if (toast == null) {
-                toast = Toast.makeText(SerialApplication.getAppContext(), msg, Toast.LENGTH_SHORT);
+                toast = Toast.makeText(SerialApplication.getContext(), msg, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
             } else {
                 toast.setText(msg);
@@ -52,9 +52,9 @@ public class ToastUtil {
      * @param msg 显示的内容-字符串
      */
     public static void showShortToastTop(String msg) {
-        if (SerialApplication.getAppContext() != null) {
+        if (SerialApplication.getContext() != null) {
             if (toast == null) {
-                toast = Toast.makeText(SerialApplication.getAppContext(), msg, Toast.LENGTH_SHORT);
+                toast = Toast.makeText(SerialApplication.getContext(), msg, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP, 0, 0);
             } else {
                 toast.setText(msg);
@@ -69,9 +69,9 @@ public class ToastUtil {
      * @param msg 显示的内容-字符串
      */
     public static void showLongToast(String msg) {
-        if (SerialApplication.getAppContext() != null) {
+        if (SerialApplication.getContext() != null) {
             if (toast == null) {
-                toast = Toast.makeText(SerialApplication.getAppContext(), msg, Toast.LENGTH_LONG);
+                toast = Toast.makeText(SerialApplication.getContext(), msg, Toast.LENGTH_LONG);
             } else {
                 toast.setText(msg);
             }
@@ -85,9 +85,9 @@ public class ToastUtil {
      * @param msg 显示的内容-字符串
      */
     public static void showLongToastCenter(String msg) {
-        if (SerialApplication.getAppContext() != null) {
+        if (SerialApplication.getContext() != null) {
             if (toast == null) {
-                toast = Toast.makeText(SerialApplication.getAppContext(), msg, Toast.LENGTH_LONG);
+                toast = Toast.makeText(SerialApplication.getContext(), msg, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
             } else {
                 toast.setText(msg);
@@ -102,9 +102,9 @@ public class ToastUtil {
      * @param msg 显示的内容-字符串
      */
     public static void showLongToastTop(String msg) {
-        if (SerialApplication.getAppContext() != null) {
+        if (SerialApplication.getContext() != null) {
             if (toast == null) {
-                toast = Toast.makeText(SerialApplication.getAppContext(), msg, Toast.LENGTH_LONG);
+                toast = Toast.makeText(SerialApplication.getContext(), msg, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.TOP, 0, 0);
             } else {
                 toast.setText(msg);

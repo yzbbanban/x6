@@ -1,6 +1,7 @@
 package com.example.x6.handler;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.x6.activity.MainActivity;
 import com.example.x6.app.SerialApplication;
@@ -51,7 +52,6 @@ public class CompareHandler implements RequestHandler {
             Map<String, String> params = HttpRequestParser.parseParams(httpRequest);
 //            LogUtil.info(TAG, new Gson().toJson(httpContext));
 //            LogUtil.info(TAG, httpRequest.toString());
-
             String id = params.get("id");
             // PRI313,30111111,2017.06.29,20,2017.06.29
             String name = params.get("name");

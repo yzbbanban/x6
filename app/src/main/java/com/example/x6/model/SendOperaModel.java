@@ -20,9 +20,9 @@ public class SendOperaModel {
 
     private static final String TAG = "SendOperaModel";
 
-    public void send(Bucket bucket, final ICallBack callback) {
+    public void send(Bucket bucket, final ICallBack callback) throws Exception {
         SendService request = RetrofitUtils.getRetrofit(SerialApplication.URL).create(SendService.class);
-        Log.i(TAG, "send: "+bucket.toString());
+        Log.i(TAG, "send: " + bucket.toString());
         String idName = bucket.getIdName();
         String bucketName = bucket.getName();
         String bucketNumber = bucket.getBucketNumber();
@@ -30,7 +30,7 @@ public class SendOperaModel {
         Double weight = bucket.getWeight();
         String bucketExpiryDate = bucket.getBucketExpiryDate();
 
-        Call<ResultCode<String>> call = request.call(idName,bucketName, bucketNumber, bucketSendDate, weight, bucketExpiryDate);
+        Call<ResultCode<String>> call = request.call(idName, bucketName, bucketNumber, bucketSendDate, weight, bucketExpiryDate);
         call.enqueue(new MyCallback<ResultCode<String>>() {
             @Override
             public void onSuc(Response<ResultCode<String>> response) {

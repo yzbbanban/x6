@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.x6.R;
 import com.example.x6.adapter.GridViewAdapter;
@@ -46,6 +48,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.ArrayList;
@@ -120,10 +124,14 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position,
                                     long arg3) {
-                Bucket bucket = dataList.get(position);
-                String value = String.valueOf(position + 1);
-                id = "" + bucket.getId();
-                setLock(view, value, bucket.getId(), position);
+                if ("admin".equals(SerialApplication.USER_NAME)) {
+                    Bucket bucket = dataList.get(position);
+                    String value = String.valueOf(position + 1);
+                    id = "" + bucket.getId();
+                    setLock(view, value, bucket.getId(), position);
+                } else {
+                    Toast.makeText(SerialApplication.getContext(), "此用户不能做开闭锁操作", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -169,7 +177,7 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
         if (StringUtil.isNotBlank(apiInfo.getIp()) && StringUtil.isNotBlank(apiInfo.getUrl())) {
             SerialApplication.URL = "http://" + apiInfo.getIp() + "/" + apiInfo.getUrl() + "/";
         } else {
-            ToastUtil.showLongToast("请先设置 ip ，接口路径");
+            Toast.makeText(SerialApplication.getContext(), "请先设置 ip ，接口路径", Toast.LENGTH_LONG).show();
         }
 
         //图标
@@ -289,8 +297,12 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
         try {
             ToastUtil.showLongToastTop(Arrays.toString(bytes));
             ttyS1OutputStream.write(bytes);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw, true));
+            String str = sw.toString();
+            Toast.makeText(SerialApplication.getContext(), "开锁上传 lockResult error-->" + str, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -471,23 +483,20 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
      * @param openCode 打开
      */
     private void lockResult(final String openCode) {
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ToastUtil.showLongToast(openCode);
+        try {
+            ToastUtil.showLongToast(openCode);
 //                SendMessage<SendOperaTime> sendMessage = new SendMessage<>();
 //                sendMessage.setStatus("OK");
 //                sendMessage.setData(new SendOperaTime(Integer.parseInt(openCode), System.currentTimeMillis() / 1000, "close"));
-                Bucket bucket = DataSupport.find(Bucket.class, Long.parseLong(id));
-                sendOperaModel.send(bucket, MainActivity.this);
-            }
-        });
-        try {
+            Bucket bucket = DataSupport.find(Bucket.class, Long.parseLong(id));
+            sendOperaModel.send(bucket, MainActivity.this);
             closeThread = null;
         } catch (Exception e) {
             e.printStackTrace();
-            ToastUtil.showLongToastCenter("unlockResult==>" + e.getMessage());
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw, true));
+            String str = sw.toString();
+            Toast.makeText(SerialApplication.getContext(), "开锁上传 lockResult error-->" + str, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -498,19 +507,17 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
      * @param closeCode 关闭
      */
     private void unlockResult(final String closeCode) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ToastUtil.showLongToast(closeCode);
-                Bucket bucket = DataSupport.find(Bucket.class, Long.parseLong(id));
-                sendOperaModel.send(bucket, MainActivity.this);
-            }
-        });
         try {
+            ToastUtil.showLongToast(closeCode);
+            Bucket bucket = DataSupport.find(Bucket.class, Long.parseLong(id));
+            sendOperaModel.send(bucket, MainActivity.this);
             openThread = null;
         } catch (Exception e) {
             e.printStackTrace();
-            ToastUtil.showLongToastCenter("unlockResult==>" + e.getMessage());
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw, true));
+            String str = sw.toString();
+            Toast.makeText(SerialApplication.getContext(), "开锁上传 unlockResult error-->" + str, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -587,6 +594,11 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
         }
         Bucket b = dataList.get(position);
         tvDialogStatus.setText(b.getStatus() == 1 ? "开锁" : "闭锁");
+        if ("admin".equals(SerialApplication.USER_NAME)) {
+
+        } else {
+            etDialogName.setEnabled(false);
+        }
 
         //添加或更新
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -743,11 +755,18 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
                 bucket.setStatus(0);
                 bucket.update(id);
 
-                saveBill(id);
-                dataList.get(position).setStatus(0);
-                adapter.notifyDataSetChanged();
-                lockResult(message);
-                alertDialog.dismiss();
+                try {
+                    saveBill(id);
+                    dataList.get(position).setStatus(0);
+                    adapter.notifyDataSetChanged();
+                    lockResult(message);
+                    alertDialog.dismiss();
+                } catch (Exception e) {
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw, true));
+                    String str = sw.toString();
+                    Toast.makeText(SerialApplication.getContext(), "闭锁上传 error-->" + str, Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -775,10 +794,19 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
                 bucket.setStatus(1);
                 bucket.update(id);
 
-                saveBill(id);
-                dataList.get(position).setStatus(1);
-                adapter.notifyDataSetChanged();
-                unlockResult(message);
+                try {
+                    saveBill(id);
+                    dataList.get(position).setStatus(1);
+                    adapter.notifyDataSetChanged();
+                    unlockResult(message);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw, true));
+                    String str = sw.toString();
+                    Toast.makeText(SerialApplication.getContext(), "开锁上传 error-->" + str, Toast.LENGTH_LONG).show();
+                }
+
                 alertDialog.dismiss();
             }
         });

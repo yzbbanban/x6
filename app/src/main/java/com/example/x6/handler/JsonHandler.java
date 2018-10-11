@@ -1,7 +1,9 @@
 package com.example.x6.handler;
 
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.x6.activity.MainActivity;
 import com.example.x6.app.SerialApplication;
 import com.example.x6.constant.SerialConstant;
 import com.example.x6.entity.Bucket;
@@ -26,6 +28,8 @@ import org.litepal.crud.DataSupport;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Map;
@@ -49,7 +53,6 @@ public class JsonHandler implements RequestHandler, ICallBack {
             Map<String, String> params = HttpRequestParser.parseParams(httpRequest);
 //            LogUtil.info(TAG, new Gson().toJson(httpContext));
 //            LogUtil.info(TAG, httpRequest.toString());
-
             String id = params.get("id");
             String status = params.get("status").toUpperCase();
             Log.i(TAG, "handle: " + id);
@@ -81,8 +84,8 @@ public class JsonHandler implements RequestHandler, ICallBack {
             SerialConstant serialConstant = new SerialConstant();
             Field field = serialConstant.getClass().getField(name);
             return (byte[]) field.get(serialConstant);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
