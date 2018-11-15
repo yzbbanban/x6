@@ -68,7 +68,17 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="16sp" />
 
-
+            <Button
+                android:id="@+id/btn_modify_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/login_selector"
+                android:text="修改密码"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

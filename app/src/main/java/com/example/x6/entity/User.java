@@ -1,8 +1,15 @@
 package com.example.x6.entity;
 
-public class User {
+import org.litepal.crud.DataSupport;
+
+public class User extends DataSupport {
+    private Integer id;
     private String name;
     private String password;
+    /**
+     * 权限
+     */
+    private Integer role;
 
     public User() {
     }
@@ -28,11 +35,30 @@ public class User {
         this.password = password;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

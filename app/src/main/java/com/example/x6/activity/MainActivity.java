@@ -84,6 +84,9 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
     @BindView(R.id.btn_all_unlock)
     Button btnAllUnlock;
 
+    @BindView(R.id.btn_modify_pwd)
+    Button btnModifyPwd;
+
     @BindView(R.id.bac)
     LinearLayout bac;
 
@@ -172,6 +175,11 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
     }
 
     protected void initData() {
+        if ("admin".equals(SerialApplication.USER_NAME)) {
+            btnModifyPwd.setVisibility(View.VISIBLE);
+        } else {
+            btnModifyPwd.setVisibility(View.GONE);
+        }
         context = this;
         ApiInfo apiInfo = SharedPreModel.getAPiSp(this);
         if (StringUtil.isNotBlank(apiInfo.getIp()) && StringUtil.isNotBlank(apiInfo.getUrl())) {
@@ -208,6 +216,33 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
         } else {
             dataList = DataSupport.findAll(Bucket.class);
         }
+        //修改数据库的数据
+        //P01~P14改为A-1~A-14，P15~P25改为B-1~B11，P26~P32改为C-1~C-7
+        for (int i = 0; i < 32; i++) {
+            Bucket bucket = new Bucket();
+            String name = "";
+            if (i <= 13) {
+                //i=0~13
+                if (i <= 9) {
+                    name = "A0" + (i + 1);
+                } else {
+                    name = "A" + (i + 1);
+                }
+            } else if (i <= 24) {
+                //i=14~24
+                name = "B" + (i - 13);
+            } else {
+                //i=25~32
+                name = "C" + (i - 24);
+            }
+            bucket.setId(i + 1);
+            bucket.setIdName(name);
+            bucket.setUpdateTime(System.currentTimeMillis() / 1000);
+            //保存数据
+            bucket.update(bucket.getId());
+        }
+
+
         sendOperaModel = new SendOperaModel();
     }
 
@@ -248,43 +283,100 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
 
     @OnClick(R.id.btn_all_lock)
     public void btnAllLock() {
-        //密码
-        if (StringUtil.isBlank(SerialApplication.PWD)) {
-            checkPassword();
-        } else {
 
-            Log.i(TAG, "btnAllLock: " + SerialApplication.PWD);
-            white(getValue("0", "C"));
-            lockResult("0");
-            //全色
-            if (StringUtil.isNotBlank(SerialApplication.PWD)) {
-                startTranslation(bac, Color.RED, 0);
+        if ("admin".equals(SerialApplication.USER_NAME)) {
+            //密码
+            if (StringUtil.isBlank(SerialApplication.PWD)) {
+                checkPassword();
+            } else {
+
+                Log.i(TAG, "btnAllLock: " + SerialApplication.PWD);
+                white(getValue("0", "C"));
+                lockResult("0");
+                //全色
+                if (StringUtil.isNotBlank(SerialApplication.PWD)) {
+                    startTranslation(bac, Color.RED, 0);
+                }
+                SerialApplication.PWD = "";
             }
-            SerialApplication.PWD = "";
+        } else {
+            Toast.makeText(SerialApplication.getContext(), "该用户没有此权限", Toast.LENGTH_LONG).show();
         }
 
     }
 
     @OnClick(R.id.btn_all_unlock)
     public void btnAllUnLock() {
-        //密码
-        if (StringUtil.isBlank(SerialApplication.PWD)) {
-            checkPassword();
-        } else {
+        if ("admin".equals(SerialApplication.USER_NAME)) {
+            //密码
+            if (StringUtil.isBlank(SerialApplication.PWD)) {
+                checkPassword();
+            } else {
 
-            Log.i(TAG, "btnAllLock: " + SerialApplication.PWD);
+                Log.i(TAG, "btnAllLock: " + SerialApplication.PWD);
 //        if (openThread == null) {
 //            openThread = new ReadOpenThread("0");
 //        }
 //        openThread.start();
-            //TODO
-            white(getValue("0", "O"));
-            lockResult("0");
-            //全色
-            if (StringUtil.isNotBlank(SerialApplication.PWD)) {
-                startTranslation(bac, Color.GREEN, 0);
+                //TODO
+                white(getValue("0", "O"));
+                lockResult("0");
+                //全色
+                if (StringUtil.isNotBlank(SerialApplication.PWD)) {
+                    startTranslation(bac, Color.GREEN, 0);
+                }
+                SerialApplication.PWD = "";
             }
-            SerialApplication.PWD = "";
+        } else {
+            Toast.makeText(SerialApplication.getContext(), "该用户没有此权限", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @OnClick(R.id.btn_modify_pwd)
+    public void btnModifyPwd() {
+        if ("admin".equals(SerialApplication.USER_NAME)) {
+            builder = new AlertDialog.Builder(this);
+            View v = getLayoutInflater().inflate(R.layout.edit_pwd_dialog, null);
+            builder.setView(v);
+            alertDialog = builder.create();
+            alertDialog.show();
+            Button btnAdd = v.findViewById(R.id.btn_dialog_add);
+            Button btnCancel = v.findViewById(R.id.btn_dialog_cancel);
+            ImageButton ibtnClose = v.findViewById(R.id.ibtn_dialog_close);
+            final EditText etDialogPwd = v.findViewById(R.id.et_dialog_pwd);
+
+            //确认
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                ToastUtil.showShortToast("Add");
+                    String pwd = etDialogPwd.getText().toString().trim();
+                    if ("".equals(pwd)) {
+                        ToastUtil.showShortToast("请输入密码");
+                    } else {
+                        SharedPreModel.saveAdminSp(MainActivity.this, "admin", pwd);
+                        ToastUtil.showShortToast("修改完成");
+                        alertDialog.dismiss();
+                    }
+
+                }
+            });
+            //取消
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ToastUtil.showShortToast("Cancel");
+                    alertDialog.dismiss();
+                }
+            });
+            ibtnClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+        } else {
+            Toast.makeText(SerialApplication.getContext(), "该用户没有此权限", Toast.LENGTH_LONG).show();
         }
     }
 

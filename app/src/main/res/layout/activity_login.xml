@@ -1,70 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    android:gravity="center"
-    android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".activity.LoginActivity">
 
-    <LinearLayout
-        android:layout_width="600dp"
-        android:layout_height="50dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="用户"
-            android:textSize="20sp" />
-
-        <com.example.x6.ui.CleanEditText
-            android:id="@+id/et_login_username"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="10"
-            android:background="@drawable/login_edit"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="600dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="密码"
-            android:textSize="20sp" />
-
-        <com.example.x6.ui.CleanEditText
-            android:id="@+id/et_login_password"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="10"
-            android:background="@drawable/login_edit"
-            android:inputType="textPassword"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
     <Button
-        android:id="@+id/btn_login"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/login_selector"
-        android:text="登录"
-        android:textColor="#FFF"
-        android:textSize="15dp" />
+        android:id="@+id/btn_init"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/refresh" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="600dp"
+            android:layout_height="50dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="用户"
+                android:textSize="20sp" />
+
+            <com.example.x6.ui.CleanEditText
+                android:id="@+id/et_login_username"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="10"
+                android:background="@drawable/login_edit"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="600dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="密码"
+                android:textSize="20sp" />
+
+            <com.example.x6.ui.CleanEditText
+                android:id="@+id/et_login_password"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="10"
+                android:background="@drawable/login_edit"
+                android:inputType="textPassword"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_selector"
+            android:text="登录"
+            android:textColor="#FFF"
+            android:textSize="15dp" />
 
 
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

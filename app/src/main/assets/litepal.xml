@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="bucket"></dbname>
-    <version value="4"></version>
+    <version value="5"></version>
     <list>
         <mapping class="com.example.x6.entity.Bucket"></mapping>
+        <mapping class="com.example.x6.entity.User"></mapping>
         <mapping class="com.example.x6.entity.BucketBill"></mapping>
     </list>
 </litepal>

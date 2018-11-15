@@ -3,7 +3,6 @@ package com.example.x6.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.x6.app.SerialApplication;
 import com.example.x6.entity.ApiInfo;
 import com.example.x6.entity.User;
 
@@ -27,12 +26,38 @@ public class SharedPreModel {
     }
 
     /**
+     * 保存用户
+     *
+     * @param name     用户
+     * @param password 密码
+     */
+    public static void saveAdminSp(Context context, String name, String password) {
+        SharedPreferences.Editor editor = context.getSharedPreferences("admin", MODE_PRIVATE).edit();
+        editor.putString("name", name);
+        editor.putString("password", password);
+        editor.commit();
+    }
+
+    /**
      * 获取用户信息
      *
      * @return 用户信息
      */
     public static User getUserSp(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("user", MODE_PRIVATE);
+        String name = preferences.getString("name", "");
+        String password = preferences.getString("password", "");
+        User user = new User(name, password);
+        return user;
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @return 用户信息
+     */
+    public static User getAdminSp(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("admin", MODE_PRIVATE);
         String name = preferences.getString("name", "");
         String password = preferences.getString("password", "");
         User user = new User(name, password);
