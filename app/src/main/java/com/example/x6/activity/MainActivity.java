@@ -581,7 +581,8 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
 //                sendMessage.setStatus("OK");
 //                sendMessage.setData(new SendOperaTime(Integer.parseInt(openCode), System.currentTimeMillis() / 1000, "close"));
             Bucket bucket = DataSupport.find(Bucket.class, Long.parseLong(id));
-            sendOperaModel.send(bucket, MainActivity.this);
+            //不回传值
+//            sendOperaModel.send(bucket, MainActivity.this);
             closeThread = null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -602,7 +603,8 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
         try {
             ToastUtil.showLongToast(closeCode);
             Bucket bucket = DataSupport.find(Bucket.class, Long.parseLong(id));
-            sendOperaModel.send(bucket, MainActivity.this);
+            //不回传值
+//            sendOperaModel.send(bucket, MainActivity.this);
             openThread = null;
         } catch (Exception e) {
             e.printStackTrace();

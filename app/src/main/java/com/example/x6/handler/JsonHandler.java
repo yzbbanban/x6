@@ -55,13 +55,15 @@ public class JsonHandler implements RequestHandler, ICallBack {
 //            LogUtil.info(TAG, httpRequest.toString());
             String id = params.get("id");
             String status = params.get("status").toUpperCase();
-            Log.i(TAG, "handle: " + id);
-            Log.i(TAG, "handle: " + status);
+            String isStatus = params.get("isStatus");
+            Log.i(TAG, "handle id: " + id);
+            Log.i(TAG, "handle status: " + status);
+            Log.i(TAG, "handle isStatus: " + isStatus);
 
             if ("O".equals(status)) {
-                white(getValue(id, status.toUpperCase()), Integer.parseInt(id), 1);
+                white(getValue(id, status.toUpperCase()), Integer.parseInt(id), 1, isStatus);
             } else {
-                white(getValue(id, status.toUpperCase()), Integer.parseInt(id), 0);
+                white(getValue(id, status.toUpperCase()), Integer.parseInt(id), 0, isStatus);
             }
             resultCode.setCode("200");
             resultCode.setMessage("success");
@@ -95,7 +97,7 @@ public class JsonHandler implements RequestHandler, ICallBack {
      *
      * @param bytes
      */
-    private void white(byte[] bytes, Integer id, Integer status) {
+    private void white(byte[] bytes, Integer id, Integer status, String isStatus) {
         try {
             ToastUtil.showLongToastTop(Arrays.toString(bytes));
 //            TODO
@@ -120,7 +122,10 @@ public class JsonHandler implements RequestHandler, ICallBack {
             bucketBill.setWeight(buc.getWeight());
             bucketBill.save();
 
-            sendOperaModel.send(buc, JsonHandler.this);
+            //只有比对后 才回传值
+            if ("1".equals(isStatus)) {
+                sendOperaModel.send(buc, JsonHandler.this);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
