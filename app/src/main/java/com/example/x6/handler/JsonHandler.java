@@ -99,8 +99,7 @@ public class JsonHandler implements RequestHandler, ICallBack {
      */
     private void white(byte[] bytes, Integer id, Integer status, String isStatus) {
         try {
-            ToastUtil.showLongToastTop(Arrays.toString(bytes));
-//            TODO
+//            TODO 真实开锁
             SerialApplication.ttyS1OutputStream.write(bytes);
             Bucket bucket = new Bucket();
             bucket.setId(id);
