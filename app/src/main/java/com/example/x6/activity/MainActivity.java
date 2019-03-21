@@ -144,7 +144,7 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Bucket bucket = dataList.get(position);
                 MainActivity.this.id = "" + bucket.getId();
-                setBucketName(bucket.getName(), bucket.getId(), position);
+                setBucketName(bucket.getName(), bucket.getExplain(), bucket.getId(), position);
                 return true;
             }
         });
@@ -196,18 +196,32 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
         dataList = new ArrayList<>();
         int result = DataSupport.count(Bucket.class);
         if (result <= 0) {
-            for (int i = 0; i < 32; i++) {
+//            for (int i = 0; i < 32; i++) {
+//
+//                Bucket bucket = new Bucket();
+//                String name = "";
+//                if (i < 9) {
+//                    name = "P0" + (i + 1);
+//                } else {
+//                    name = "P" + (i + 1);
+//                }
+//                bucket.setName(name);
+//                bucket.setIdName(name);
+//                bucket.setExplain(name);
+//                bucket.setUpdateTime(System.currentTimeMillis() / 1000);
+//                bucket.setStatus(0);
+//                bucket.save();
+//                dataList.add(bucket);
+//            }
+            for (int i = 0; i < 9; i++) {
 
                 Bucket bucket = new Bucket();
                 String name = "";
-                if (i < 9) {
-                    name = "P0" + (i + 1);
-                } else {
-                    name = "P" + (i + 1);
-                }
+                name = "" + (i + 1) + "号站";
+                String explain = "" + (i + 1) + "号站";
                 bucket.setName(name);
-                bucket.setIdName(name);
-                bucket.setExplain(name);
+                bucket.setIdName("P" + (i + 1));
+                bucket.setExplain(explain);
                 bucket.setUpdateTime(System.currentTimeMillis() / 1000);
                 bucket.setStatus(0);
                 bucket.save();
@@ -218,30 +232,41 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
         }
         //修改数据库的数据
         //P01~P14改为A-1~A-14，P15~P25改为B-1~B11，P26~P32改为C-1~C-7
-        for (int i = 0; i < 32; i++) {
+//        for (int i = 0; i < 32; i++) {
+//            Bucket bucket = new Bucket();
+//            String name = "";
+//            if (i <= 13) {
+//                //i=0~13
+//                if (i <= 9) {
+//                    name = "A0" + (i + 1);
+//                } else {
+//                    name = "A" + (i + 1);
+//                }
+//            } else if (i <= 24) {
+//                //i=14~24
+//                name = "B" + (i - 13);
+//            } else {
+//                //i=25~32
+//                name = "C" + (i - 24);
+//            }
+//            bucket.setId(i + 1);
+//            bucket.setIdName(name);
+//            bucket.setUpdateTime(System.currentTimeMillis() / 1000);
+//            //保存数据
+//            bucket.update(bucket.getId());
+//        }
+
+        for (int i = 0; i < 9; i++) {
             Bucket bucket = new Bucket();
             String name = "";
-            if (i <= 13) {
-                //i=0~13
-                if (i <= 9) {
-                    name = "A0" + (i + 1);
-                } else {
-                    name = "A" + (i + 1);
-                }
-            } else if (i <= 24) {
-                //i=14~24
-                name = "B" + (i - 13);
-            } else {
-                //i=25~32
-                name = "C" + (i - 24);
-            }
+            name = "" + (i + 1) + "号站";
+            String explain = "" + (i + 1) + "号站";
             bucket.setId(i + 1);
             bucket.setIdName(name);
             bucket.setUpdateTime(System.currentTimeMillis() / 1000);
             //保存数据
             bucket.update(bucket.getId());
         }
-
 
         sendOperaModel = new SendOperaModel();
     }
@@ -671,7 +696,7 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
     /**
      * 设置名字参数
      */
-    private void setBucketName(String name, final Integer id, final Integer position) {
+    private void setBucketName(String name, String explain, final Integer id, final Integer position) {
         builder = new AlertDialog.Builder(this);
         View v = getLayoutInflater().inflate(R.layout.edit_bucket_dialog, null);
         builder.setView(v);
@@ -681,10 +706,12 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
         Button btnCancel = v.findViewById(R.id.btn_dialog_cancel);
         ImageButton ibtnClose = v.findViewById(R.id.ibtn_dialog_close);
         final EditText etDialogName = v.findViewById(R.id.et_dialog_name);
+        final EditText etDialogExplain = v.findViewById(R.id.et_dialog_explain);
         final TextView tvDialogStatus = v.findViewById(R.id.tv_lock_status);
 
-        if (StringUtil.isNotBlank(name)) {
+        if (StringUtil.isNotBlank(name) || StringUtil.isNotBlank(explain)) {
             etDialogName.setText(name);
+            etDialogExplain.setText(explain);
         }
         Bucket b = dataList.get(position);
         tvDialogStatus.setText(b.getStatus() == 1 ? "开锁" : "闭锁");
@@ -692,6 +719,7 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
 
         } else {
             etDialogName.setEnabled(false);
+            etDialogExplain.setEnabled(false);
         }
 
         //添加或更新
@@ -700,16 +728,19 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
             public void onClick(View view) {
 //                ToastUtil.showShortToast("Add");
                 String name = etDialogName.getText().toString().trim();
-                if ("".equals(name)) {
+                String explain = etDialogExplain.getText().toString().trim();
+                if ("".equals(name) || "".equals(explain)) {
                     ToastUtil.showShortToast("请输入");
                 } else {
                     Bucket bucket = new Bucket();
                     bucket.setName(name);
+                    bucket.setExplain(explain);
                     bucket.setId(id);
                     bucket.update(id);
 
                     saveBill(id);
                     dataList.get(position).setName(name);
+                    dataList.get(position).setExplain(explain);
                     adapter.notifyDataSetChanged();
                     alertDialog.dismiss();
                 }
