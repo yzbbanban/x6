@@ -65,25 +65,42 @@ public class CompareHandler implements RequestHandler {
                 resultCode.setMessage("error");
                 result = gson.toJson(resultCode);
             } else {
-                String[] bucketParams = name.split(",");
-                if (bucketParams[0].equals(bucket.getName())) {
-                    resultCode.setCode("200");
-                    resultCode.setMessage("success");
-                    result = gson.toJson(resultCode);
-                    //保存数据
-                    bucket.setName(bucketParams[0]);
-                    bucket.setBucketNumber(bucketParams[1]);
-                    bucket.setBucketSendDate(bucketParams[2]);
-                    bucket.setWeight(Double.parseDouble(bucketParams[3]));
-                    bucket.setBucketExpiryDate(bucketParams[4]);
-                    bucket.update(bucket.getId());
+                if (name.contains(",")) {
+                    String[] bucketParams = name.split(",");
+                    if (bucketParams[0].equals(bucket.getName())) {
+                        resultCode.setCode("200");
+                        resultCode.setMessage("success");
+                        result = gson.toJson(resultCode);
+                        //保存数据
+                        bucket.setName(bucketParams[0]);
+                        bucket.setBucketNumber(bucketParams[1]);
+                        bucket.setBucketSendDate(bucketParams[2]);
+                        bucket.setWeight(Double.parseDouble(bucketParams[3]));
+                        bucket.setBucketExpiryDate(bucketParams[4]);
+                        bucket.update(bucket.getId());
 
 
+                    } else {
+                        resultCode.setCode("500");
+                        resultCode.setMessage("error");
+                        result = gson.toJson(resultCode);
+                    }
                 } else {
-                    resultCode.setCode("500");
-                    resultCode.setMessage("error");
-                    result = gson.toJson(resultCode);
+                    if (name.equals(bucket.getName())) {
+                        resultCode.setCode("200");
+                        resultCode.setMessage("success");
+                        result = gson.toJson(resultCode);
+                        //保存数据
+                        bucket.setName(name);
+                        bucket.update(bucket.getId());
+                    } else {
+                        resultCode.setCode("500");
+                        resultCode.setMessage("error");
+                        result = gson.toJson(resultCode);
+                    }
                 }
+
+
             }
 
             StringEntity stringEntity = new StringEntity(result, "utf-8");
