@@ -446,7 +446,8 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
     /* 打开串口 */
     private void initSerial() {
         try {
-            serialttyS1 = new SerialPort(new File("/dev/ttyS0"), 9600, 0);
+//            serialttyS1 = new SerialPort(new File("/dev/ttyS0"), 9600, 0);
+            serialttyS1 = new SerialPort(new File("/dev/ttyUSB0"), 9600, 0);
             ttyS1InputStream = serialttyS1.getInputStream();
             ttyS1OutputStream = serialttyS1.getOutputStream();
             SerialApplication.serialttyS1 = serialttyS1;
@@ -462,11 +463,14 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
     @Override
     public void setSuccess(Object message) {
         ToastUtil.showLongToast(String.valueOf(message));
+//        ToastUtil.ToastShow(String.valueOf(message));
     }
 
     @Override
     public void setFailure(Object message) {
         ToastUtil.showLongToast(String.valueOf(message));
+//        ToastUtil.ToastShow(String.valueOf(message));
+
     }
 
     @Override
@@ -859,28 +863,29 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
             @Override
             public void onClick(View view) {
 //                vb.setBackgroundColor(Color.RED);
-                ToastUtil.showLongToast("btnLock==>" + message);
-                Drawable drawableColor = new ColorDrawable(Color.RED);
-                vb.setBackgroundDrawable(drawableColor);
+                try {
 
-                //TODO ====================================================
+                    ToastUtil.showLongToast("btnLock==>" + message);
+                    Drawable drawableColor = new ColorDrawable(Color.RED);
+                    vb.setBackgroundDrawable(drawableColor);
+
+                    //TODO ====================================================
 //                if (openThread == null) {
 //                    openThread = new ReadOpenThread(message);
 //                }
 //                openThread.start();
-                //TODO ====================================================
-                //特效
-                startTranslation(vb, Color.RED, 1);
-                //TODO ============================================dddddd========
+                    //TODO ====================================================
+                    //特效
+                    startTranslation(vb, Color.RED, 1);
+                    //TODO ============================================dddddd========
 
-                white(getValue(message, "C"));
-                //保存到数据库，更新状态
-                Bucket bucket = new Bucket();
-                bucket.setId(id);
-                bucket.setStatus(0);
-                bucket.update(id);
+                    white(getValue(message, "C"));
+                    //保存到数据库，更新状态
+                    Bucket bucket = new Bucket();
+                    bucket.setId(id);
+                    bucket.setStatus(0);
+                    bucket.update(id);
 
-                try {
                     saveBill(id);
                     dataList.get(position).setStatus(0);
                     adapter.notifyDataSetChanged();
@@ -900,26 +905,27 @@ public class MainActivity extends BaseActivity implements ICallBack, OnServerCha
             @Override
             public void onClick(View view) {
 //                vb.setBackgroundColor(Color.parseColor("#008b27"));
-                ToastUtil.showLongToast("btnUnlock==>" + message);
-                Drawable drawableColor = new ColorDrawable(Color.parseColor("#008b27"));
-                vb.setBackgroundDrawable(drawableColor);
+                try {
 
-                //TODO ====================================================
+                    ToastUtil.showLongToast("btnUnlock==>" + message);
+                    Drawable drawableColor = new ColorDrawable(Color.parseColor("#008b27"));
+                    vb.setBackgroundDrawable(drawableColor);
+
+                    //TODO ====================================================
 //                if (closeThread == null) {
 //                    closeThread = new ReadCloseThread(message);
 //                }
 //                closeThread.start();
-                //TODO ====================================================
-                startTranslation(vb, Color.GREEN, 1);
+                    //TODO ====================================================
+                    startTranslation(vb, Color.GREEN, 1);
 
-                //TODO ============================================dddddd========
-                white(getValue(message, "O"));
-                Bucket bucket = new Bucket();
-                bucket.setId(id);
-                bucket.setStatus(1);
-                bucket.update(id);
+                    //TODO ============================================dddddd========
+                    white(getValue(message, "O"));
+                    Bucket bucket = new Bucket();
+                    bucket.setId(id);
+                    bucket.setStatus(1);
+                    bucket.update(id);
 
-                try {
                     saveBill(id);
                     dataList.get(position).setStatus(1);
                     adapter.notifyDataSetChanged();

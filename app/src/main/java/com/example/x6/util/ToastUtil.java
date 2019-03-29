@@ -1,8 +1,12 @@
 package com.example.x6.util;
 
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.x6.R;
 import com.example.x6.app.SerialApplication;
 
 
